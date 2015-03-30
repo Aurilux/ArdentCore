@@ -1,0 +1,21 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+	"modid": "ArdentCore",
+	"name": "ArdentCore",
+	"description": "Library mod used by all of Aurilux's mods",
+	"version": "${mod_version}",
+	"mcversion": "${minecraft_version}",
+	"url": "",
+	"updateUrl": "",
+	"authorList": [ "Aurilux" ],
+	"credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": [ "Forge" ],
+    "dependencies": [],
+    "dependants": [ "Xthuoth", "Cybernetica", "Subterrania" ],
+    "useDependencyInformation": true
+  }]
+}

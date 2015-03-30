@@ -1,4 +1,4 @@
-package com.aurilux.aur.util;
+package aurilux.ardentcore.common.util;
 
 /**
  * This class was created by <Aurilux>. It's distributed as part of the ArdentCore Mod.
@@ -19,7 +19,8 @@ import net.minecraft.item.ItemStack;
 public class ArmorSetUtils {
     /**
      * Returns true if the player is wearing a complete set of armor of the type given
-     * @param player the player whose armor inventory we are checking
+     *
+     * @param player     the player whose armor inventory we are checking
      * @param armorClass the class of the armor
      * @return true if the player is wearing four pieces of the armor type
      */
@@ -31,9 +32,10 @@ public class ArmorSetUtils {
      * Returns how many pieces of a specific type of armor the player is wearing.
      * If the ItemStack parameter is not null, that specific piece of armor will not be included in the count.
      * This method is used to determine 'per additional piece bonuses'
-     * @param player the player whose armor inventory we are checking
+     *
+     * @param player     the player whose armor inventory we are checking
      * @param armorClass the class of the armor
-     * @param stack the armor itemstack we are checking for
+     * @param stack      the armor itemstack we are checking for
      * @return the number of armor pieces of the armor type the player is wearing
      */
     public static int getNumDonnedArmor(EntityPlayer player, Class armorClass, ItemStack stack) {
@@ -48,7 +50,7 @@ public class ArmorSetUtils {
 
     /**
      * @param player the player whose armor inventory we are checking
-     * @param stack the armor itemstack we are checking for
+     * @param stack  the armor itemstack we are checking for
      * @return true if the player is wearing the specific armor itemstack
      */
     public static boolean isEquipped(EntityPlayer player, ItemStack stack) {
@@ -61,7 +63,7 @@ public class ArmorSetUtils {
     }
 
     /**
-     * @param player the player whose armor inventory we are checking
+     * @param player     the player whose armor inventory we are checking
      * @param armorClass the class of the armor
      * @return true if the player is wearing an armor of the class type
      */
@@ -74,7 +76,9 @@ public class ArmorSetUtils {
         return false;
     }
 
-    /** Simple helper method to save a bit on typing */
+    /**
+     * Simple helper method to save a bit on typing
+     */
     public static ItemStack[] getPlayerArmor(EntityPlayer player) {
         return player.inventory.armorInventory;
     }

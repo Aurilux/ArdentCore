@@ -17,18 +17,17 @@ buildscript {
 
 apply plugin: 'forge'
 
+ext.priv = parseConfig(file('private.properties'))
+
 //Current version of my mod. Gets appended to the end of the jar name
-version = "1.1.1"
+version = "1.0.0"
 //Java file structure/hierarchy
-group = "com.aurilux.aur" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "aurilux.ardentcore" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 //Name of the mod. Used to name the resulting jar
 archivesBaseName = "ArdentCore"
 
 minecraft {
     version = "1.7.10-10.13.2.1230"
-
-    replaceIn "lib/AURModInfo.java"
-    replace "@MOD_VERSION@", "${project.version}"
 }
 
 version = "1.7.10-" + project.version
@@ -47,3 +46,77 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
+def jarToCopy = copySpec{
+    from 'build/libs/'
+    include { details -> details.file.name.endsWith('.jar') &&
+            details.file.name.contains(project.version) }
+}
+
+//Copies the completed jar to three directories. The MultiMC/mods and .minecraft/mods for testing, and Dropbox for
+//release.
+task copyToTesting(type: Copy) {
+    //There is currently no way (so far as I know) to do three copies and delete's in a more concise manner
+    copy {
+        //Delete the jar of a previous mod version
+        def dir = "${priv.user}/Desktop/MultiMC/mods"
+        def files = new File(dir).listFiles().sort()
+        files.each { File file ->
+            println file.name
+            if (file.name.contains(project.name) && !file.name.contains(project.version)) {
+                delete file;
+                //returning true breaks the each loop
+                return true;
+            }
+        }
+
+        with jarToCopy
+        into dir
+    }
+    copy {
+        //Delete the jar of a previous mod version
+        def dir = "${priv.user}/AppData/Roaming/.minecraft/mods"
+        def files = new File(dir).listFiles().sort()
+        files.each { File file ->
+            println file.name
+            if (file.name.contains(project.name) && !file.name.contains(project.version)) {
+                delete file;
+                //returning true breaks the each loop
+                return true;
+            }
+        }
+
+        with jarToCopy
+        into dir
+    }
+    copy {
+        //I don't delete anything from this directory because that would get rid of previous versions
+        with jarToCopy
+        into "${priv.user}/Dropbox/Minecraft Mods/1.7.x"
+    }
+}
+//This statements tells gradle to run 'copyToTesting' immediately after the build task has been completed
+build.finalizedBy copyToTesting
+
+//Artifacts can only include tasks with task types that deal with archives such as jars or zips. Other task types, such
+//as copy, will result in an error
+artifacts {
+}
+
+/*
+jar {
+    //Access Transformer Config
+    //use forge_at.cfg for reference
+    manifest {
+        attributes 'FMLAT': 'ArdentCore_at.cfg'
+    }
+}
+*/
