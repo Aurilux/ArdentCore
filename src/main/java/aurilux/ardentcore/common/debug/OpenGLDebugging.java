@@ -1,4 +1,4 @@
-package aurilux.ardentcore.common.util;
+package aurilux.ardentcore.common.debug;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;

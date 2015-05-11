@@ -23,9 +23,10 @@ import net.minecraftforge.common.AchievementPage;
 /**
  * A helper class to assist with achievements.
  */
-public class AchievementUtil {
+public class AchievementUtils {
     /**
-     * A helper to create an AchievementMod object.
+     * A helper to create an achievement object. Will automatically return a ProgressAchievement if the correct
+     * parameters are sent.
      * @param id      id of the achievment
      * @param col     the display column
      * @param row     the display row

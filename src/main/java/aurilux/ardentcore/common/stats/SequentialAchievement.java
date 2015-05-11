@@ -1,6 +1,6 @@
 package aurilux.ardentcore.common.stats;
 
-import aurilux.ardentcore.common.util.AchievementUtil;
+import aurilux.ardentcore.common.util.AchievementUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ public class SequentialAchievement extends Achievement {
      */
     public ProgressAchievement getNextInSequence(EntityPlayer player) {
         for (Achievement pa : achievements) {
-            if (!AchievementUtil.isAchievementUnlocked(player, pa)) {
+            if (!AchievementUtils.isAchievementUnlocked(player, pa)) {
                 return (ProgressAchievement) pa;
             }
         }

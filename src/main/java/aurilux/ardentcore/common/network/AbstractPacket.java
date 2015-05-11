@@ -1,5 +1,6 @@
 package aurilux.ardentcore.common.network;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -20,7 +21,7 @@ public abstract class AbstractPacket<REQ extends IMessage> implements IMessage, 
         if (ctx.side == Side.SERVER) {
             handleServerSide(message, ctx.getServerHandler().playerEntity);
         } else {
-            handleClientSide(message, null);
+            handleClientSide(message, FMLClientHandler.instance().getClient().thePlayer);
         }
         return null;
     }
@@ -29,7 +30,7 @@ public abstract class AbstractPacket<REQ extends IMessage> implements IMessage, 
      * Handle a packet on the client side. Note this occurs after decoding has completed.
      *
      * @param message
-     * @param player  the player reference
+     * @param player the player reference
      */
     public abstract void handleClientSide(REQ message, EntityPlayer player);
 
@@ -37,7 +38,7 @@ public abstract class AbstractPacket<REQ extends IMessage> implements IMessage, 
      * Handle a packet on the server side. Note this occurs after decoding has completed.
      *
      * @param message
-     * @param player  the player reference
+     * @param player the player reference
      */
     public abstract void handleServerSide(REQ message, EntityPlayer player);
 }
