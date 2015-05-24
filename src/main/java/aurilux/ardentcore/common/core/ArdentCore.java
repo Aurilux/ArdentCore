@@ -17,6 +17,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.EnumChatFormatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,13 +32,15 @@ public class ArdentCore {
     /**
      * Your mod's asset directory should follow the convention of being in all lowercase letters
      */
-    public static final AssetWrapper assets = new AssetWrapper(MOD_ID.toLowerCase());
+    public static final AssetWrapper assets = new AssetWrapper(MOD_ID.toLowerCase(), null);
     /**
      * It is encouraged to use FMLPreInitializationEvent's getModLog to get your logger. However, when reading output it
      * is easier to find when the logger title is in all caps; getModLog uses your mod id which may not be in all caps.
      */
     public static final Logger logger = LogManager.getLogger(MOD_ID.toUpperCase());
     public static final SimpleNetworkWrapper network = new SimpleNetworkWrapper(MOD_ID);
+
+    public static final boolean devEnv = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     @Mod.Instance(MOD_ID)
     public static ArdentCore instance;

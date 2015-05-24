@@ -21,16 +21,16 @@ import net.minecraft.stats.Achievement;
  * achievements for your achievement page as it will not work properly.
  *
  * The only reason this class extends Achievement (aside from the similarity) is so the completeAchievement function
- * in AchievementUtils can work with it.
+ * in AchievementManager can work with it.
  */
 public class SequentialAchievement extends Achievement {
-    private Achievement[] achievements;
+    private ProgressAchievement[] achievements;
 
     /**
      * @param id
      * @param achievements
      */
-    public SequentialAchievement(String id, Achievement... achievements) {
+    public SequentialAchievement(String id, ProgressAchievement... achievements) {
         super(id, id, 0, 0, new ItemStack(Blocks.web), null);
         this.achievements = achievements;
     }
@@ -40,9 +40,9 @@ public class SequentialAchievement extends Achievement {
      * @return the found ProgressAchievement, null if we've unlocked all ProgressAchievements in this sequence
      */
     public ProgressAchievement getNextInSequence(EntityPlayer player) {
-        for (Achievement pa : achievements) {
+        for (ProgressAchievement pa : achievements) {
             if (!AchievementUtils.isAchievementUnlocked(player, pa)) {
-                return (ProgressAchievement) pa;
+                return pa;
             }
         }
         return null;

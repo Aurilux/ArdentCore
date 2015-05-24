@@ -22,8 +22,8 @@ public class ProgressAchievement extends Achievement {
      */
     private int progressMax = 0;
 
-    public ProgressAchievement(String id, int column, int row, ItemStack itemStack, Achievement parent, int max) {
-        super(id, id, column, row, itemStack, parent);
+    public ProgressAchievement(String id, String name, int column, int row, ItemStack itemStack, Achievement parent, int max) {
+        super(id, name, column, row, itemStack, parent);
         progressMax = max;
     }
 
